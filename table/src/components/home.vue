@@ -1,7 +1,7 @@
 <template>
   <div class="jumbotron">
     <h1>这个是路由对应的页面,下面就是一个表格组件</h1>
-    <table-com/>
+    <table-com></table-com>
   </div>
 </template>
 <script>

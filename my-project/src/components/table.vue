@@ -59,13 +59,12 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-table{
-  background: red;
-  button{
-    background: blue;
-    color: #fff;
-  }
-}
+  table{
+    background:#ddd;
+    button{
 
+      color: #fff;
+    }
+  }
 
 </style>

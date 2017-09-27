@@ -1,5 +1,5 @@
 <template>
-  <div class="jumbotron">
+  <div class="container">
     <h1>这个是路由对应的页面,下面就是一个表格组件</h1>
     <table-com></table-com>
   </div>
@@ -17,3 +17,9 @@
     }
   }
 </script>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="less">
+.container{
+  background: #fff;
+}
+</style>

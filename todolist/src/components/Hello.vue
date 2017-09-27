@@ -17,10 +17,10 @@
 
 <script>
   export default {
-    name: 'hello',
+    name: 'this is a hello',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App',
+        msg: 'this is a hello',
         title:'<span>this is a todolist</span>',
         newItem:'',//初始化对绑定数据的变量进行定义
         items:[

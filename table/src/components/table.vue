@@ -60,9 +60,21 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 table{
-  background: red;
+  background: #fff;
+  thead{
+    tr{
+      th{
+        text-align: center;
+        font-size: 22px;
+      }
+    }
+  }
   button{
-    background: blue;
+    width: 60px;
+    height: 30px;
+    border:1px solid #ddd;
+    border-radius: 5px;
+    background: #e4393c;
     color: #fff;
   }
 }

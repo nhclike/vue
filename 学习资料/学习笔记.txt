@@ -1,0 +1,15 @@
+demo网址：http://imooc.51purse.com/
+
+核心思想：
+1数据驱动
+2组件化
+
+虚拟dom
+服务端渲染SSR
+
+父子组件通信
+子组件间的相互通信
+
+node.js
+javascript的运行环境
+cnpm

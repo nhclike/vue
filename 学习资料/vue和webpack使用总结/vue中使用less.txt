@@ -1,0 +1,20 @@
+1安装less
+npm install less -g
+2idea中配置file watch
+3Vue项目配置Less
+npm install less less-loader --save
+4配置webapck解析，"bulid"-->"webpack.base.config.js"，添加一下代码
+{
+   test: /\.less$/,
+   loader: 'style-loader!css-loader!less-loader'
+ }
+5.vue文件中
+<style scoped lang="less">
+table{
+  background: red;
+  button{
+    background: blue;
+    color: #fff;
+  }
+}
+</style>

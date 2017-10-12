@@ -1,0 +1,5 @@
+1vue与echat的结合使用
+2vue与bootstrap的结合使用，特别是bootstrap中的js
+3vue中的数据通信问题
+4多级路由数据控制
+5数据状态管理问题

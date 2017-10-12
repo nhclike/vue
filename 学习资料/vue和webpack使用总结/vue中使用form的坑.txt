@@ -1,0 +1,5 @@
+http://www.cnblogs.com/dupd/p/5920300.html
+checkbox最基本用法:
+规则1：如果v-model绑定的变量类型为boolean,inputdata变量初始设置为false，但是在页面进行编译时，因为第一个input为选中状态，所以更新inputdata为true，那么渲染结束之后三个input均为选中状态，且三个input状态同步。
+规则2：如果v-model绑定的变量类型为数组，那么绑定该变量的元素若被选中，把该元素的value值添加进数组，若不被选中，那么把该元素的value从数组中去除。
+所以在v-model绑定的变量类型是数组的情况下，务必设置绑定该变量的每个元素的value值，且value值不要相等。

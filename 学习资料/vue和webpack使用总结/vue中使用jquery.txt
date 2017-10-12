@@ -1,0 +1,20 @@
+vue使用jquery博客：http://www.cnblogs.com/Yann001/p/6850698.html
+
+1.cnpm install jquery --save
+2.build目录下找到webpack.base.conf.js
+//开头使用以下代码引入webpack
+var webpack = require('webpack')
+//module.exports中添加一段代码
+// 添加代码
+plugins: [
+  new webpack.ProvidePlugin({
+$: "jquery",
+jQuery: "jquery",
+jquery: "jquery",
+"window.jQuery": "jquery"
+  })
+],
+3.main.js里导入jQuery
+import 'jquery'
+4.在需要用到的.vue中
+import $ from 'jquery'

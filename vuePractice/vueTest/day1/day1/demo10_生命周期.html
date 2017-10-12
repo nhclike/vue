@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+    {{msg}}
+    <button @click="handleClick">clickMe</button>
+    <p>{{count}}</p>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive',
+            count:0
+        },
+        methods:{
+            handleClick: function () {
+                console.log(app);
+                this.count++;
+                if(this.count > 5)
+                {
+                    app.$destroy();
+                }
+            }
+        },
+        beforeCreate: function () {
+            console.log('in beforeCreate');
+        },
+        created: function () {
+            console.log('in created');
+        },
+        beforeMount: function () {
+            console.log('in beforeMount');
+        },
+        mounted: function () {
+            console.log('in mounted');
+        },
+        beforeUpdate: function () {
+            console.log('in beforeUpdate');
+        },
+        updated: function () {
+            console.log('in updated');
+        },
+        beforeDestroy: function () {
+            console.log('in beforeDestroy');
+        },
+        destroyed: function () {
+            console.log('in destroyed');
+        }
+
+    })
+</script>
+
+</body>
+</html>

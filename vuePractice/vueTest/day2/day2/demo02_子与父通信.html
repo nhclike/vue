@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+    {{msg}}
+    <father></father>
+</div>
+
+<script type="text/x-template" id="father-template">
+    <div>
+        <h1>this is father component</h1>
+        <span>{{"儿子发来的数据："+msgFromSon}}</span>
+        <hr/>
+        <son @toFather="recEvent"></son>
+    </div>
+</script>
+<script type="text/x-template" id="son-template">
+    <div>
+        <h1>this is son component</h1>
+        <input type="text" v-model="kw"/>
+        <button @click="handleClick">sendToFather</button>
+    </div>
+</script>
+<script>
+    Vue.component('father',{
+        template:'#father-template',
+        data:function(){
+          return {
+              msgFromSon:''
+          }
+        },
+        methods:{
+            recEvent:function(result){
+                this.msgFromSon = result
+            }
+        }
+    })
+    Vue.component('son',{
+        template:'#son-template',
+        data:function(){
+            return{
+                kw:''
+            }
+        },
+        methods:{
+            handleClick: function () {
+                //通过事件向父组件传递数据
+                this.$emit('toFather',this.kw)
+            }
+        }
+    })
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        }
+    })
+</script>
+
+</body>
+</html>

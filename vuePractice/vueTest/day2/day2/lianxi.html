@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+    {{msg}}
+    <to-do-box></to-do-box>
+</div>
+
+<script>
+    //创建组件的注意事项：
+    //1、组件的命名：烤串式
+    //2、组件如果要返回多个内容，放在一个顶层标签
+    //3、全局组件要在new Vue之前先创建好
+
+    //to-do-box
+    Vue.component('to-do-box',{
+        template:'<div> <to-do-input></to-do-input>' +
+        '<to-do-list></to-do-list> </div>'
+    });
+    //to-do-input
+    Vue.component('to-do-input',{
+        template:' <div> <h1>待做事项列表</h1> ' +
+        '<input type="text"/> <button>add</button></div>'
+    });
+
+    //to-do-list
+    Vue.component('to-do-list',{
+        template:'<div><to-do-item></to-do-item>' +
+        '<to-do-item></to-do-item></div>'
+    });
+
+
+    //to-do-item
+    Vue.component('to-do-item',{
+        template:'<div> <button>删除</button> ' +
+        '<span>吃饭</span></div>'
+    });
+
+
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        }
+    })
+</script>
+
+</body>
+</html>

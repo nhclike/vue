@@ -1,0 +1,184 @@
+一、Vue介绍
+
+vuejs.com
+github.com/vuejs/awesome-vue //列举了和vue先关的官方和第三方用的比较多的资源
+
+what？VueJS是国内的开发者尤雨溪开发的js的框架
+
+when？ 实现UI层的渐进式的框架
+从最简单的数据处理，到数据交互，到DOM操作，到路由处理等，VueJS都有完整的解决方案
+
+why？
+学习曲线比较缓和
+Vue借鉴了Angular的指令、React中组件和props等优点进行设计
+Vue提供了全套的解决方案
+
+how？
+两种开发模式：
+1、CLI
+# 全局安装 vue-cli
+$ npm install --global vue-cli
+# 创建一个基于 webpack 模板的新项目
+$ vue init webpack my-project
+# 安装依赖，走你
+$ cd my-project
+$ npm install
+$ npm run dev
+
+2、引入js文件
+直接下载，引入js文件即可
+
+
+二、Vue知识点
+1、Vue所支持的指令
+选择：
+v-if v-else v-else-if
+
+循环：
+v-for
+
+显示：
+v-show
+
+绑定属性：
+v-bind
+在vue中 绑定html属性，必须使用v-bind
+缩写的形式： v-bind:src --> :src
+
+双向数据绑定：
+v-model 修饰符：.lazy .number .trim
+<input	type='number' v-model.number='num1'/>
+
+绑定事件：
+v-on:click="handleClick"
+缩写形式： @click=""
+
+
+2、自定义指令
+
+3个钩子函数：
+bind：绑定
+update：更新
+unbind：解绑
+
+练习：自定义指令，给按钮用的，按钮点击时按钮中的文本：1、2、3、4.。。。（在指令内部去修改按钮中的文本内容），当数字大于5的时候，将元素从DOM中移除（在指令的unbind打印出‘element is removed’）
+
+
+3、过滤器
+作用：数据的处理
+
+自从Vue2.0之后，就已经自带的过滤取消，不再支持，用户要想使用，有两种方法：
+①https://github.com/wy-ei/vue-filter
+②自定义过滤器
+
+
+像ng，通过| 管道符号，支持多重过滤，而且支持给过滤器传参
+
+过滤器的本质就是一个函数！
+
+①自定义过滤器创建
+在Vue实例的filters属性中指定：
+currency:function(value,arg1,arg2){
+	return '处理后的数据'
+}
+
+②自定义过滤器使用
+依然是管道符号，只有传参方式变了：
+{{ price | currency('￥','@')}}
+
+练习：
+实现一个将字符串转换成大写的过滤器。
+
+
+4、计算属性
+计算属性其实是一个方法，定义在computed属性中的方法。
+计算属性的优势：
+①计算属性的方法和methods中的方法实现的功能是一样的，但是由于计算属性是有计算缓存的，可以让更新更高效
+②让代码更方便进行维护
+
+什么时候需要使用计算属性？
+方法所依赖的数据，性能开销比较大，适合用计算属性，正常情况，在methods定义方法也是可以的。
+
+5、监听属性
+watch：{
+kw:function(newValue,oldValue){}
+kw2:function(newValue,oldValue){}
+}
+
+6、vue中生命周期
+create、mount、update、destroy
+每个阶段都对应着有处理函数：
+
+beforeCreate
+created
+beforeMount
+mounted
+beforeUpdate
+updated
+beforeDestroy
+destroyed
+
+7、组件
+①React
+在React中组件的创建和使用：
+var MyComponent = React.createClass({
+	componentWillMount:func,
+	getInitialState:func,
+	handleCLick:
+	render:function(){}
+})
+
+<MyComponent></MyComponent>
+
+②Vue
+Vue.component('my-component',{
+	template:
+})	data:...
+<my-component></my-component>
+
+组件命名：建议通过烤串式的命名方式（中间有-连接起来）
+
+8、复合组件
+全局组件可以在父模板中的任何一个元素（组件）去使用，
+局部组件只能够用在父模板中。
+
+比如：局部组件 item，全局组件 my-list,my-item
+
+可以在my-list中调用my-item，但是不可以调用item（局部组件）
+
+当将局部组件或者全局组件放在一起构成的组件称之为复合组件。
+
+
+MVVM：Model+View+ViewModel
+MVC：Model+View+Controller
+
+每日一练：
+
+
+借助于VueJS的组件来构造‘待做事项的列表’（添加、删除不着急处理）
+
+创建组件，ui显示处理。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

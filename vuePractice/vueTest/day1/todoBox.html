@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+    <title></title>
+</head>
+<body>
+
+<div id="example"></div>
+
+<script type="text/babel">
+    var ToDoInput = React.createClass({
+        handleClick:function(){
+            //拿到用户的输入
+            var result = this.refs.inputTxt.value;
+            //将输入的内容 发送 给ToDoBox
+            this.props.funcAdd(result);
+        },
+        render:function(){
+            return <div>
+                <h1>待做事项列表</h1>
+                <input type="text" ref="inputTxt"/>
+                <button onClick={this.handleClick}>add</button>
+            </div>
+        }
+    })
+
+    var ToDoList = React.createClass({
+        displayList:function(){
+            return this.props.myList.map(function(value,i){
+                console.log(value,i);
+                return <ToDoItem key={i} index={i} deleFunc={this.props.funcDele}
+                content={value}></ToDoItem>
+            }.bind(this))
+        },
+        render:function(){
+            return <ul>
+                {this.displayList()}
+            </ul>
+        }
+    })
+
+    var ToDoItem = React.createClass({
+        handleClick:function(){
+            this.props.deleFunc(this.props.index);
+        },
+        render:function(){
+            return <li>
+            <button onClick={this.handleClick}>删除</button>
+            <span>{this.props.content}</span>
+            </li>
+        }
+    })
+
+    var ToDoBox = React.createClass({
+        getInitialState:function(){
+            return {list:[]}
+        },
+        addToList:function(content){
+            //将参数写到状态的数组中
+            var oldList = this.state.list;
+            oldList.push(content);
+            this.setState({list:oldList},function(){
+                console.log('修改后的状态为：',this.state.list);
+            })
+        },
+        deleteFromList:function(index){
+            var oldList = this.state.list;
+            oldList.splice(index,1);
+            this.setState({list:oldList})
+        },
+        render:function(){
+            return <div>
+            <ToDoInput funcAdd={this.addToList}></ToDoInput>
+            <ToDoList funcDele={this.deleteFromList} myList={this.state.list}></ToDoList>
+            </div>
+        }
+    })
+
+    ReactDOM.render(
+    <ToDoBox></ToDoBox>,
+    document.getElementById('example')
+    )
+
+</script>
+
+</body>
+</html>

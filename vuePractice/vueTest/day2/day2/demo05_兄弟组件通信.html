@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+    <laoda></laoda>
+    <hr/>
+    <laoer></laoer>
+</div>
+
+<script type="text/x-template" id="laoda-template">
+    <div>
+        <h1>laoda</h1>
+        <button @click="tellLaoer">回家吃饭</button>
+    </div>
+</script>
+<script type="text/x-template" id="laoer-template">
+    <div>
+        <h1>laoer</h1>
+        <span v-if="msgFromLaoDa">{{"老大说："+msgFromLaoDa}}</span>
+    </div>
+</script>
+<script>
+
+    //新建一个Vue的实例，通过bus完成事件的绑定和触发
+    var bus = new Vue();
+
+    Vue.component('laoda', {
+        template: '#laoda-template',
+        methods:{
+            tellLaoer: function () {
+                //触发事件通知老二回家吃饭
+                bus.$emit('eventToBrother','赶紧回家吃饭')
+            }
+        }
+    })
+    Vue.component('laoer', {
+        template: '#laoer-template',
+        data:function(){
+            return {
+                msgFromLaoDa:null
+            }
+        },
+        mounted: function () {
+            //事件的绑定
+            bus.$on('eventToBrother', function (result) {
+                console.log(result);
+                this.msgFromLaoDa = result;
+            }.bind(this))
+        }
+    })
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        }
+    })
+</script>
+
+</body>
+</html>

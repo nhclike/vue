@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+    <chat-room></chat-room>
+</div>
+
+<script type="text/x-template" id="charRoomTempalte">
+    <div>
+        <ul>
+            <li v-for="item in list">{{item}}</li>
+        </ul>
+        <lucy></lucy>
+        <mike></mike>
+    </div>
+</script>
+<script type="text/x-template" id="lucyTempalte">
+    <div>
+        <label >lucy</label>
+        <input type="text" v-model="lucyTxt"/>
+        <button @click="send">发送</button>
+    </div>
+</script>
+<script type="text/x-template" id="mikeTempalte">
+    <div>
+        <label >mike</label>
+        <input type="text" v-model="mikeTxt"/>
+        <button @click="send">发送</button>
+    </div>
+</script>
+<script>
+    Vue.component('chat-room', {
+        template: '#charRoomTempalte',
+        data: function () {
+            return{
+                list:[]
+            }
+        }
+    })
+    Vue.component('lucy', {
+        template: '#lucyTempalte',
+        data: function () {
+          return {
+              lucyTxt:''
+          }
+        },
+        methods:{
+            send: function () {
+                //将lucy输入的内容存到聊天室的列表中
+                this.$parent.list.push('lucy:'+this.lucyTxt);
+            }
+        }
+    })
+    Vue.component('mike', {
+        template: '#mikeTempalte',
+        data: function () {
+            return {
+                mikeTxt:''
+            }
+        },
+        methods:{
+            send: function () {
+                //将lucy输入的内容存到聊天室的列表中
+                this.$parent.list.push('mike:'+this.mikeTxt);
+            }
+        }
+    })
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        }
+    })
+</script>
+
+</body>
+</html>

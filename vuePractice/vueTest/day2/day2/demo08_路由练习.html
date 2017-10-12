@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+
+<div id="example">
+    <!-- 加载组件的容器-->
+    <router-view></router-view>
+</div>
+
+<script type="text/x-template" id="list-template">
+    <ul>
+        <li v-for=" (dish,index) in dishList">
+            <a :href="'#/myDetail/'+index">jump</a>
+            <button @click="handleClick(index)">{{dish}}</button>
+        </li>
+    </ul>
+</script>
+
+<script>
+
+    var List = Vue.component('list-component', {
+        template: '#list-template',
+        data: function () {
+            return {
+                dishList: ['鱼香肉丝', '京酱肉丝', '烤鸭']
+            }
+        },
+        methods: {
+            handleClick: function (index) {
+                //跳转到detail
+                this.$router.push('/myDetail/'+index)
+            }
+        }
+    })
+
+    var Detail = Vue.component('detail-component', {
+        template: '<h1>接受到的参数为{{msg}}</h1>',
+        data: function () {
+          return {
+              msg:''
+          }
+        },
+        mounted: function () {
+            this.msg = this.$route.params.id
+        }
+    })
+
+    var myRoutes = [
+        {
+            path: '/',
+            component: List
+        },
+        {
+            path: '/myList',
+            component: List
+        },
+        {
+            path: '/myDetail/:id',
+            component: Detail
+        },
+        {
+            path: '*',
+            component: List
+        }
+    ];
+    var myRouter = new VueRouter({
+        routes: myRoutes
+    })
+    new Vue({
+        el: '#example',
+        router: myRouter,
+        data: {
+            msg: 'Hello Directive'
+        }
+    })
+</script>
+
+</body>
+</html>

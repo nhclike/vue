@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+    <to-do-box></to-do-box>
+</div>
+
+<script type="text/x-template" id="box-template">
+    <div>
+        <to-do-input></to-do-input>
+        <to-do-list v-bind:myList="list"></to-do-list>
+    </div>
+</script>
+<script type="text/x-template" id="input-template">
+    <div>
+        <h1>待做事项列表</h1>
+        <input type="text" v-model="inputTxt"/>
+        <button @click="handleAdd">add</button>
+    </div>
+</script>
+<script type="text/x-template" id="list-template">
+    <ul>
+        <to-do-item v-for="tmp in myList"
+                    :content="tmp">
+
+        </to-do-item>
+    </ul>
+</script>
+<script type="text/x-template" id="item-template">
+    <li>
+        <button>删除</button>
+        <span>{{content}}</span>
+    </li>
+</script>
+
+<script>
+    Vue.component('to-do-box',{
+       template:'#box-template',
+        data: function () {
+            return {
+                list:[]
+            }
+        }
+    });
+    Vue.component('to-do-input',{
+        template:'#input-template',
+        data: function () {
+            return{
+                inputTxt:''
+            }
+        },
+        methods:{
+            handleAdd: function () {
+                //将用户的输入 保存 到todobox中
+                this.$parent.list.push(this.inputTxt)
+            }
+        }
+    });
+    Vue.component('to-do-list',{
+        props:['myList'],
+        template:'#list-template'
+    });
+    Vue.component('to-do-item',{
+        props:['content'],
+        template:'#item-template'
+    });
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        }
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+	<button v-on:click="greet">greet</button>
+	<button v-on:click="say('hi')">say hi</button>
+	<button v-on:click="say('what')">say what</button>
+	<h1>使用$event</h1>
+	<button v-on:click="warn('Form cannot be submitted yet',$event)">$event</button>
+</div>
+
+<script>
+
+  new Vue({
+    el:'#example',
+    data:{
+      msg:' VueJS'
+    },
+		methods:{
+      greet:function (event) {
+				alert('Hello'+this.msg+'!');
+				alert(event.target.tagName);
+      },
+			say:function (msg) {
+				alert(msg);
+      },
+			warn:function (msg,event) {
+				console.log('msg'+msg);
+				console.log(event);
+				if(event)
+				  event.preventDefault();
+				alert(msg);
+      }
+		}
+  })
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,351 @@
+(function () {
+
+
+    function injectCss(container, url) {
+        var root = container.ownerDocument || document;
+
+        var style = root.createElement('link');
+        style.type = 'text/css';
+        style.rel = 'stylesheet';
+        style.href = url;
+
+        root.getElementsByTagName('head')[0].appendChild(style);
+
+        return style;
+
+    }
+
+    function Skin(player, container, options) {
+
+        this._isPaused = false;
+        this._isMuted = true;
+        this._isFirstClick = false;
+        this._player = player;
+        this._container = container;
+        this._options = options;
+        this._wrapper = options;
+        this._skipAd = {
+            enabled: false,
+            counter: 0,
+            timer: null
+        };
+
+        injectCss(this._options.containerId, "https://static.cliipa.com/basev/skins/blue/blue.css");
+        this._checkCss = function () {
+            if (window.getComputedStyle(this._container.querySelector(".sbt-default-skin-icon-spinner")).top == "5px") {
+                this._wrapper.style.display = ''
+            } else {
+                setTimeout(this._checkCss.bind(this), 50)
+            }
+
+        }
+        this.initialize = function () {
+
+            var div = this._wrapper = document.createElement("div");
+            setTimeout(this._checkCss.bind(this), 50);
+
+            div.className = "";
+            div.style.position = "absolute";
+            div.style.width = "100%";
+            div.style.height = "100%";
+            div.style.top = "0px";
+            div.style.left = "0px";
+            div.style.display = "none";
+
+            div.innerHTML = '<div class="sbt-default-skin-icon-spinner sbt-spin" style="display: none"></div><div class="sbt-default-skin-overlay-wrapper" style="display: none"> <div class="sbt-default-skin-overlay"><i class="sbt-default-skin-icon-play"></i></div></div>' +
+                '<div class="sbt-default-skin-skip-ad-btn" style="display: none;"><div class="sbt-default-skin-skip-ad-btn-inner"><div class="sbt-default-skin-skip-ad-btn-text"></div></div></div>' +
+                '<div class="sbt-default-skin-control-bar">' +
+                '<div class="sbt-default-skin-play sbt-default-skin-icon-pause"></div>' +
+                '<span class="sbt-default-skin-time">00:00</span>' +
+                '<span class="sbt-default-skin-progress"><span class="sbt-default-skin-progress-bar" style="width: 0%"></span></span>' +
+                '<span class="sbt-default-skin-duration">00:00</span> ' +
+                '<div class="sbt-default-skin-mute sbt-default-skin-icon-volume-mute"></div></div>';
+
+
+            container.appendChild(div);
+
+
+            this._container.querySelector('.sbt-default-skin-play').addEventListener('click', function (ev) {
+                ev.preventDefault();
+                ev.stopPropagation();
+                this._isPaused ? this.play() : this.pause();
+            }.bind(this));
+
+            this._container.querySelector('.sbt-default-skin-progress').addEventListener('click', function (ev) {
+                ev.preventDefault();
+                ev.stopPropagation();
+                this.seek(ev);
+            }.bind(this));
+
+            this._container.querySelector('.sbt-default-skin-mute').addEventListener('click', function (ev) {
+                ev.preventDefault();
+                ev.stopPropagation();
+
+                this._isMuted ? this.unmute() : this.mute();
+            }.bind(this));
+
+            this._player.on('contentTimeChange', function (time) {
+                this._container.querySelector('.sbt-default-skin-time').innerHTML = this.joinDuration(time);
+
+                this._container.querySelector('.sbt-default-skin-progress-bar').style.width = (time / this._duration * 100) + '%';
+
+            }, this);
+
+            this._player.on('contentDurationChange', function (time) {
+                this._duration = time;
+                this._container.querySelector('.sbt-default-skin-duration').innerHTML = this.joinDuration(time);
+
+            }, this);
+
+            this._player.on('playListFinished', function () {
+                //this.pause();
+                this._isFirstClick = false;
+
+            }, this);
+
+
+            this._player.on('contentVisible', this.resetSkipAd, this);
+            this._player.on('contentVisible', this.showControllBar, this);
+            this._player.on('contentHidden', this.hideControllBar, this);
+
+            this._player.on('adRollStart', function(roll){
+                if(this._options.rollWait ||  roll.position !="mid-roll" ){
+                    this.showLoading()
+                }
+            }, this);
+            this._player.on('adRollEmpty', this.hideLoading, this);
+            this._player.on('adStart', function (ad) {
+                this.hideLoading();
+
+                if (ad.server.skipAd > 0) {
+                    this.setupSkipAd(ad.server.skipAd);
+                } else {
+                    this.resetSkipAd();
+                }
+                if (!ad.server.showControlBar && (ad.adType == "swf" || ad.adType == "js" || ad.adType == "mobile_js" || ad.adType == "ima" || ad.adType == "ima_swf")) {
+                    this.hideControllBar(true)
+                }
+
+            }, this);
+            this._player.on('paused', this.pause, this);
+            this._player.on('playing', this.play, this);
+            this._player.on('muted', this.mute, this);
+            this._player.on('unMuted', this.unmute, this);
+
+            this._container.querySelector(".sbt-default-skin-overlay-wrapper").addEventListener('click', function (ev) {
+                ev.preventDefault();
+                ev.stopPropagation();
+
+                if (!this._isFirstClick) {
+                    this._player.start();
+                }
+
+                this.play();
+
+                this._isFirstClick = true;
+
+            }.bind(this));
+
+            if (!this._options.autoPlay) {
+                this.pause();
+            } else {
+                this._isFirstClick = true;
+                this.play();
+            }
+
+            this._container.querySelector(".sbt-default-skin-skip-ad-btn").addEventListener('click', function (ev) {
+                ev.preventDefault();
+                ev.stopPropagation();
+                this.skipAd();
+            }.bind(this));
+
+            this._options.muted ? this.mute() : this.unmute();
+        }
+
+        this.setupSkipAd = function (skipAfterSeconds) {
+            this._skipAd.enabled = true;
+            this._skipAd.counter = skipAfterSeconds;
+
+            this.setSkipAdButtonText();
+
+            this._skipAd.timer = window.setTimeout(this.onAfterSecond.bind(this), 1000);
+
+            this._container.querySelector('.sbt-default-skin-skip-ad-btn').style.display = ""
+        };
+
+        this.resetSkipAd = function () {
+
+            this._container.querySelector('.sbt-default-skin-skip-ad-btn').style.display = "none";
+
+            window.clearTimeout(this._skipAd.timer);
+
+            this._skipAd = {
+                enabled: false,
+                counter: 0,
+                timer: null
+            };
+        }
+
+        this.setSkipAdButtonText = function () {
+            var message = '';
+            var $btnText = this._container.querySelector('.sbt-default-skin-skip-ad-btn .sbt-default-skin-skip-ad-btn-text');
+
+            if (this._skipAd.enabled) {
+                if (this._skipAd.counter > 0) {
+                    $btnText.classList.remove('sbt-default-skin-skip-ad-btn-skipable');
+                    message = 'Skip in ' + this._skipAd.counter + '...';
+                } else {
+                    $btnText.classList.add('sbt-default-skin-skip-ad-btn-skipable');
+                    message = 'Skip Ad';
+
+                }
+            }
+
+            $btnText.innerHTML = message;
+        };
+
+        this.onAfterSecond = function () {
+            if (this._skipAd.enabled && this._skipAd.counter > 0) {
+
+                if (!this._isPaused) {
+                    this._skipAd.counter -= 1;
+                }
+
+                this.setSkipAdButtonText();
+
+                this._skipAd.timer = window.setTimeout(this.onAfterSecond.bind(this), 1000);
+            }
+        };
+
+        this.skipAd = function () {
+            if (this._skipAd.enabled && this._skipAd.counter == 0) {
+                this._player.skip();
+            }
+        }
+
+        this.play = function () {
+
+            if (!this._isPaused) {
+                return
+            }
+
+            this._container.querySelector(".sbt-default-skin-overlay-wrapper").style.display = 'none';
+            this._isPaused = false;
+            this._player.play();
+            var btn = this._container.querySelector('.sbt-default-skin-play');
+            btn.classList.remove("sbt-default-skin-icon-play");
+            btn.classList.add('sbt-default-skin-icon-pause');
+        }
+
+        this.pause = function () {
+
+            if (this._isPaused) {
+                return
+            }
+
+            this._container.querySelector(".sbt-default-skin-overlay-wrapper").style.display = '';
+            this._isPaused = true;
+            this._player.pause();
+            var btn = this._container.querySelector('.sbt-default-skin-play');
+            btn.classList.remove("sbt-default-skin-icon-pause");
+            btn.classList.add('sbt-default-skin-icon-play');
+        }
+
+        this.seek = function (e) {
+            var second = this.getSecondByEvent(e);
+
+            this._container.querySelector('.sbt-default-skin-progress-bar').style.width = (second / this._duration * 100) + '%';
+
+            this._player.seek(second);
+        };
+
+        this.mute = function () {
+
+            if (this._isMuted) {
+                return
+            }
+
+            this._isMuted = true;
+            this._player.mute();
+            var btn = this._container.querySelector('.sbt-default-skin-mute');
+            btn.classList.remove("sbt-default-skin-icon-volume-high");
+            btn.classList.add('sbt-default-skin-icon-volume-mute');
+        }
+
+        this.unmute = function () {
+
+            if (!this._isMuted) {
+                return
+            }
+
+            this._isMuted = false;
+            this._player.unmute();
+            var btn = this._container.querySelector('.sbt-default-skin-mute');
+            btn.classList.remove("sbt-default-skin-icon-volume-mute");
+            btn.classList.add('sbt-default-skin-icon-volume-high');
+        }
+
+        this.showControllBar = function () {
+
+            this._container.querySelector('.sbt-default-skin-control-bar').style.display = "";
+            this._container.querySelector(".sbt-default-skin-progress").style.visibility = 'visible';
+            this._container.querySelector(".sbt-default-skin-time").style.visibility = 'visible';
+            this._container.querySelector(".sbt-default-skin-duration").style.visibility = 'visible';
+
+        }
+
+        this.hideControllBar = function (hideAll) {
+            (hideAll) && (this._container.querySelector('.sbt-default-skin-control-bar').style.display = "none");
+
+            this._container.querySelector(".sbt-default-skin-progress").style.visibility = 'hidden';
+            this._container.querySelector(".sbt-default-skin-time").style.visibility = 'hidden';
+            this._container.querySelector(".sbt-default-skin-duration").style.visibility = 'hidden';
+
+        }
+
+        this.showLoading = function () {
+            this._container.querySelector(".sbt-default-skin-icon-spinner").style.display = "";
+            //this.hideControllBar(true);
+        }
+
+        this.hideLoading = function () {
+            this._container.querySelector(".sbt-default-skin-icon-spinner").style.display = "none";
+            this.showControllBar();
+        }
+
+        this.joinDuration = function (seconds) {
+
+            var sec_num = seconds; // don't forget the second param
+            var minutes = Math.floor(sec_num / 60);
+            seconds = Math.floor(sec_num - (minutes * 60));
+
+
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+            var time = minutes + ':' + seconds;
+
+            return time;
+
+        }
+
+        this.getSecondByEvent = function (e) {
+            var targetRect = e.currentTarget.getBoundingClientRect(),
+                percentage = (e.clientX - targetRect.left) / targetRect.width;
+
+            return Math.floor(percentage * this._duration);
+        }
+    }
+
+    vidazoo.addSkin('blue', function (player, container, options) {
+
+        var skin = new Skin(player, container, options);
+        //setTimeout(function () {
+            skin.initialize();
+       // }, 1);
+    })
+
+})()

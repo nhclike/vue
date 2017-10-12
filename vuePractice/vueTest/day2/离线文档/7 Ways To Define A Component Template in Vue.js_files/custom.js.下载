@@ -1,0 +1,177 @@
+var COOKIE_UDEMY_COURSES = 'udemy-courses';
+var COOKIE_SOURCE = 'source';
+var COURSE_QUERY = 'utm_medium';
+var SOURCE_QUERY = 'jsdojo_id';
+var POPUP_DELAY = window.cxApi && window.cxApi.chooseVariation() ? 30 : 15;
+
+/*globals jQuery, document */
+(function ($) {
+  "use strict";
+
+  // Define new method
+  $.QueryString = (function (a) {
+    if (a == "") return {};
+    var b = {};
+    for (var i = 0; i < a.length; ++i) {
+      var p = a[i].split('=', 2);
+      if (p.length != 2) continue;
+      b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+    }
+    return b;
+  })(window.location.search.substr(1).split('&'));
+
+  // Custom code to handle stuff up with source query "blog_vid" ...
+  if ($.QueryString[SOURCE_QUERY] === 'blog_vid' && history.pushState) {
+    let obj = $.QueryString;
+    obj[COURSE_QUERY] = 1022582;
+    var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + $.param(obj);
+    window.history.pushState({path: newurl}, '', newurl);
+  }
+
+  $(document).ready(function () {
+
+    // Responsive video embeds
+    $('.entry-content').fitVids();
+
+    // Navigation
+    $('#menu-toggle').click(function () {
+      var _this = $(this);
+      _this.toggleClass('toggled-on').attr('aria-expanded', _this.attr('aria-expanded') === 'false' ? 'true' : 'false');
+      $('.nav-menu').slideToggle();
+    });
+    $(window).bind('resize orientationchange', function () {
+      if ($('#menu-toggle').is(':hidden')) {
+        $('#menu-toggle').removeClass('toggled-on').attr('aria-expanded', 'false');
+        $('.nav-menu').removeAttr('style');
+      }
+    });
+
+    // Scroll to top
+    $('#top-link').on('click', function (e) {
+      $('html, body').animate({'scrollTop': 0});
+      e.preventDefault();
+    });
+
+    // Drop course cookie
+    if ($.QueryString[COURSE_QUERY]) {
+      var cookie = Cookies.get(COOKIE_UDEMY_COURSES) ? JSON.parse(Cookies.get(COOKIE_UDEMY_COURSES)) : [];
+      if (Array.isArray(cookie)) {
+        if (cookie.indexOf($.QueryString[COURSE_QUERY]) === -1) {
+          cookie.push($.QueryString[COURSE_QUERY]);
+          Cookies.set(COOKIE_UDEMY_COURSES, JSON.stringify(cookie));
+
+        }
+      } else {
+        cookie = [$.QueryString[COURSE_QUERY]];
+        Cookies.set(COOKIE_UDEMY_COURSES, JSON.stringify(cookie));
+      }
+    }
+
+    // Drop source cookie
+    if ($.QueryString[SOURCE_QUERY]) {
+      Cookies.set(COOKIE_SOURCE, $.QueryString[SOURCE_QUERY]);
+    }
+
+    // Set form values
+    var courses = $.QueryString[COURSE_QUERY] ? [$.QueryString[COURSE_QUERY]] : ( Cookies.get(COOKIE_UDEMY_COURSES) ? JSON.parse(Cookies.get(COOKIE_UDEMY_COURSES)) : [] );
+    if (courses.length) {
+      $('input[name="COURSE"]').val(courses.join(','));
+    }
+
+    var source = $.QueryString[SOURCE_QUERY] ? $.QueryString[SOURCE_QUERY] : Cookies.get(COOKIE_SOURCE);
+    if (source) {
+      $('input[name="SOURCE"]').val(source);
+    }
+
+    // Popup
+    var COOKIE_POPUP_CLOSED = 'popup-closed';
+    var COOKIE_SUBSCRIBED = 'user-subscribed';
+    var POPUP_ID = '#popup-form';
+    var POPUP_FORM_ID = '#vuejs-developers-newsletter';
+    var EMAIL_INPUT_ID = '#popup-email';
+
+    var isNewsletterPage = (window.location.pathname.replace(/\//g, '') === 'newsletter');
+    var magnificPopup = $.magnificPopup.instance;
+
+    if (!Cookies.get(COOKIE_POPUP_CLOSED) && !Cookies.get(COOKIE_SUBSCRIBED) && !isNewsletterPage) {
+
+      setTimeout(function () {
+        magnificPopup.open({
+          items: {
+            src: POPUP_ID,
+            type: 'inline'
+          },
+          preloader: false,
+          closeBtnInside: true,
+          focus: '#popup-email',
+          mainClass: 'mfp-fade',
+
+          // When elemened is focused, some mobile browsers in some cases zoom in
+          // It looks not nice, so we disable it:
+          callbacks: {
+            beforeOpen: function () {
+              if ($(window).width() < 700) {
+                this.st.focus = false;
+              } else {
+                this.st.focus = EMAIL_INPUT_ID;
+              }
+            },
+            beforeClose: function () {
+              Cookies.set(COOKIE_POPUP_CLOSED, 1, {expires: 14});
+            }
+          }
+        });
+      }, POPUP_DELAY * 1000);
+    } else if (isNewsletterPage) {
+      $(EMAIL_INPUT_ID).focus();
+      Cookies.set(COOKIE_POPUP_CLOSED, 1, {expires: 14});
+    }
+
+    // Popup submit
+    $(POPUP_FORM_ID).submit(function () {
+      if (window.ga) {
+        window.ga('send', {
+          hitType: 'event',
+          eventCategory: 'Newsletter',
+          eventAction: 'subscribe'
+        });
+      }
+      Cookies.set(COOKIE_SUBSCRIBED, 1);
+      if (isNewsletterPage) {
+        setTimeout(function () {
+          $(location).attr('href', window.location.origin);
+        }, 1);
+      } else {
+        magnificPopup.close();
+      }
+    });
+
+    // Allow form submission with email
+    $(EMAIL_INPUT_ID).keyup(function (e) {
+      var code = e.which;
+      if (code === 13) {
+        $(POPUP_FORM_ID).submit();
+        return false;
+      }
+    });
+
+    //social sharing magic
+    var DOMAIN = 'http://vuejsdevelopers.com';
+    var url = DOMAIN + location.pathname;
+    getTwitterCount(url);
+
+    $('.counter').ShareCounter({
+      url: url,
+      increment: true
+    });
+
+    function getTwitterCount(url) {
+      var endpoint = 'http://public.newsharecounts.com/count.json?url=' + url;
+      $.get({ url: endpoint}).done(function(result){
+        $('.c_twitter').text(result.count)
+      })
+
+    }
+  });
+  
+}(jQuery));

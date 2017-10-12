@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+    {{msg}}
+    <father></father>
+</div>
+
+<script type="text/x-template" id="father-template">
+    <div>
+        <h1>this is father component</h1>
+        <input type="text" v-model="kw"/>
+        <button @click="handleClick">clickMe</button>
+        <hr/>
+        <son :name="kw"></son>
+    </div>
+</script>
+<script type="text/x-template" id="son-template">
+    <div>
+        <h1>this is son component</h1>
+        <span>{{"接受到的数据为:"+name}}</span>
+    </div>
+</script>
+
+<script>
+    //创建组件
+    //在组件中，data属性必须是一个带有返回值而且返回值是对象的方法
+    Vue.component('father',{
+        template:'#father-template',
+        data: function () {
+            return{
+                kw:''
+            }
+        },
+        methods:{
+            handleClick: function () {
+                console.log('ready to update data');
+            }
+        }
+    })
+
+    Vue.component('son',{
+        props:['name'],
+        template:"#son-template"
+    })
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        }
+    })
+</script>
+
+</body>
+</html>

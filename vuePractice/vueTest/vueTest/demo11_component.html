@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+	<h1>{{msg}}</h1>
+	<my-component></my-component>
+	<child-component></child-component>
+</div>
+
+<script>
+	//注册全局组件，可在整个项目中调用
+	Vue.component('my-component',{
+	  template:'<div>this is a global component</div>',
+	});
+
+  var child={
+    template:'<div>this is a local component</div>',
+  };
+  //创建根实例
+  new Vue({
+    el:'#example',
+    data:{
+      msg:'Hello VueJS'
+    },
+		components:{
+      'child-component':child,//局部组件只在父模版控制范围可用
+		}
+  });
+
+</script>
+
+
+</body>
+</html>

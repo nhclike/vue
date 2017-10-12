@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+    {{msg}}
+    <p>价格为{{price | currency('￥')}}</p>
+</div>
+
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive',
+            price:100
+        },
+        filters:{
+            //value所指的是传递给过滤器的值
+            //arg1指的是过滤器后边的参数
+            currency: function (value,arg1) {
+                return arg1+value
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

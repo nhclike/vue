@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+	<h1>form表单</h1>
+	<input type="text" v-model="inputMsg" placeholder="edit me">
+	<p>inputMsg is :{{inputMsg}}</p>
+	<textarea name="" id="" cols="30" rows="10" v-model="textareaMsg"></textarea>
+	<br>
+	<p>
+		textareaMsg is :{{textareaMsg}}
+	</p>
+	<input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+	<label for="jack">Jack</label>
+	<input type="checkbox" id="john" value="John" v-model="checkedNames">
+	<label for="john">John</label>
+	<input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+	<label for="mike">Mike</label>
+	<br>
+	<span>Checked names: {{ checkedNames }}</span>
+	<br>
+	<input type="radio" id="one" value="One" v-model="picked">
+	<label for="one">One</label>
+	<br>
+	<input type="radio" id="two" value="Two" v-model="picked">
+	<label for="two">Two</label>
+	<br>
+	<span>Picked: {{ picked }}</span>
+	<select v-model="selected" multiple>
+		<option>A</option>
+		<option>B</option>
+		<option>C</option>
+	</select>
+	<br>
+	<span>Selected: {{ selected }}</span>
+</div>
+
+<script>
+
+  new Vue({
+    el:'#example',
+    data:{
+      inputMsg:'',
+			textareaMsg:'',
+      checkedNames:[],
+      picked:'',
+      selected:[]
+    }
+  })
+
+</script>
+
+
+</body>
+</html>

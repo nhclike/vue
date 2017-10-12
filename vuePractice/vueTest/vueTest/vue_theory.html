@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+		<h1>defineProperty的原理与使用</h1>
+		<input type="text" id="username">
+		<br>
+		<span id="uName"></span>
+		<script>
+			var obj={
+
+			};
+			Object.defineProperty(obj,"userName",{
+			  get:function () {
+					console.log("get init")
+        },
+				set:function (val) {
+					console.log("set init");
+					document.getElementById("uName").innerText=val
+        }
+			});
+			document.getElementById("username").addEventListener("keyup",function (event) {
+				document.getElementById("uName").innerText=event.target.value;
+      })
+		</script>
+</body>
+</html>

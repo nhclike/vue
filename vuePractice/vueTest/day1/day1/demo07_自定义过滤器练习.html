@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+    {{msg | uppercase}}
+</div>
+
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        },
+        filters:{
+            uppercase:function(value){
+                return value.toUpperCase();
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

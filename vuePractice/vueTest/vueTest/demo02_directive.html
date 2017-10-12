@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+	<h1>{{msg}}</h1>
+	<h1>js直接计算</h1>
+	<h1>{{number+1}}</h1>
+	<h1>{{ok?'yes':'no'}}</h1>
+	<h1>{{msg.split('').reverse().join('')}}</h1>
+	<div v-bind:id="'list-' + id">id=list-{{id}}</div>
+	<p v-if="seen">seen is true</p>
+	<p v-else="seen">seen is false</p>
+	<!-- 完整语法 -->
+	<a v-bind:href="url">a跳转</a>
+	<!-- 缩写 -->
+	<a :href="url">a跳转缩写</a>
+
+</div>
+
+<script>
+
+  new Vue({
+    el:'#example',
+    data:{
+      msg:'Hello VueJS',
+			number:1,
+			ok:true,
+			id:1,
+			seen:false,
+			url:'https://www.baidu.com/'
+    }
+  })
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+    {{msg}}
+    <!--<p>{{步骤1，步骤2，步骤3.。。步骤5}}</p>-->
+    <p>{{operateMsg}}</p>
+</div>
+
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        },
+        computed:{
+            operateMsg: function () {
+                //实现比较复杂的业务逻辑
+                //步骤1
+                //步骤2
+                //步骤3
+                //步骤4
+                //步骤5
+                return 123
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

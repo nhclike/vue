@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+    {{msg}}
+    <!-- <select v-on:change="funcSelect">-->
+    <select @change="funcSelect">
+        <option value="r">Red</option>
+        <option value="g">Green</option>
+        <option value="b">Blue</option>
+    </select>
+<!--提交事件触发时的修饰符：.prevent-->
+    <form @submit.prevent="funcSubmit">
+        是否同意<input type="checkbox"/>
+        <button>提交</button>
+    </form>
+    
+</div>
+
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        },
+        methods:{
+            funcSelect:function(event){
+                console.log(event.target.value);
+            },
+            funcSubmit: function () {
+                console.log('submit event is triggered');
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

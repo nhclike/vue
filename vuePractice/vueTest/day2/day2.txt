@@ -1,0 +1,174 @@
+https://github.com/kunyashaw/kfl_vue
+https://github.com/kunyashaw/ng2Example
+
+一、组件之间的通信
+
+组件之间数据传递：
+props down,events up
+
+1、父组件给子组件传值
+
+props down
+
+步骤：
+①在创建子组件 指定属性，把要传递的值给属性
+<son name='zhangsan'></son>
+②在子组件内部声明props属性
+props:['name']
+//props数组中的元素就是属性的名称，在组件创建完成之后，只要是通过该属性传值了，就可以直接在props的元素中拿到传递过来的数据
+
+
+注意事项：
+1、在组件中，data属性必须是一个带有返回值而且返回值是对象的方法
+2、如果在通过属性传值时，值是会变化，通过v-bind指令将变量绑定到属性
+<son v-bind:name='kw'></son>
+<son :name='kw'></son>
+
+2、子组件和父组件通信
+events up
+
+步骤：
+要想通过事件传值，要约定事件的名称：toFather
+①在调用子组件时 绑定自定义的事件
+<son @toFather=""></son>
+②在子组件中触发自定义的事件，并传值
+this.$emit('事件的名称','传递的数据')
+this.$emit('toFather',123);
+
+
+3、ref
+父组件操作子组件：
+
+<子组件 ref='名称'></子组件>
+在父组件中可以通过:this.$refs.名称
+(react: this.refs.名称)
+
+子组件操作父组件：
+this.$parent.属性或者方法
+
+练习：
+简单的聊天室
+
+分析组件构成：
+chat-room父组件
+lucy 子组件：名称+input+按钮
+mike  子组件：名称+input+按钮
+
+功能实现：
+目标：将子组件中用户输入的信息，发送之后，显示在chat-room的列表中。
+
+数据存储在数组中：chat-room
+数据操作：子组件点击发送时 往数组中插入数据
+
+
+4、兄弟组件之间通信
+借助于事件
+var bus = new Vue()
+
+this.$emit()
+this.$on()
+
+
+angularJs 多个控制器通信：
+①$rootScope
+②借助于控制器之间的嵌套
+③事件 $scope.$on $scope.$broadcast $scope.$emit
+④借助于service
+
+React 组件之间的通信：
+①借助于props 传值 this.props
+②借助于props传递方法
+
+
+二、vue-router 路由
+ngRoute
+①引入对应的angular-router.js 指定ngRoute
+②ngView创建一个盛放代码片段的容器
+③路由词典
+app.config(function($routeProvider){
+$routeProvider.when()
+.otherwise
+})
+跳转： $location.path a href='#/myDetail'
+传参： ①发送接收 ②配置接收方路由 /myDetail -->/myDetail/:id ③$routeParams
+
+ui-router:支持代码片段的嵌套
+①引入对应的js文件，ionic ['ui.router']
+②uiView
+③配置状态
+$stateProvder.state() 
+$urlRouterProvider.otherwise
+跳转：$state.go ui-sref a
+传参：①发送接收 ②配置接收方状态对应的url ③$stateParams
+
+vue-router
+①引入对应的vue-router.js
+②指定容器
+<router-view></router-view>
+③配置路由词典
+3.1 定义一个对象数组
+每一个对象包含两个属性：path component
+var myRoutes=[{path:'',component:}]
+3.2 创建VueRouter对象（路由词典）
+var myRouter= new VueRouter({
+	routes:myRoutes=
+})
+3.3 在Vue的实例中，指定router属性为myRouter
+
+跳转：
+<router-link to='/myMain'></router-link>
+this.$router.push('/myLogin')
+a href='#/myLogin'
+
+传参：
+①发送 、接受
+②配置接收方的路由
+③接受参数
+
+从注册页面 跳转到 主页面 并发送数据123：
+①发送：register 接受：main
+②配置main的路由
+{path:'/myMain',com..}-->
+{path:'/myMain/:id',com..}
+③在组件生命周期钩子函数中读取传递过来的参数
+mounted:function(){
+	var result= this.$route.params.id
+}
+④ href='#/myMain/123' 
+router-link to='/myMain/123'
+this.$router.push('/myMain/123')
+
+
+路由传参练习：
+有两个组件，一个列表 list-component,一个详情detail-component；
+列表中有3个列表项，点击列表项，可以跳转到详情，同时将列表的下标传递给详情，在详情页接受到数据，显示出来。
+
+
+
+
+三、vue-http 网络请求
+this.$http.get/post/ajax().then(function(response){})
+
+
+四、综合练习
+通过VueJS来实现待做事项列表。
+
+步骤分析：
+(4:55 - 5:10)
+①完成组件的创建和使用
+
+要求：在创建组件时，template属性要通过模板创建(x-template)
+
+②添加
+在todobox定义一个数组 list，点击todoinput中add按钮时，将用户的输入存在todobox中的list中：
+子组件与父组件通信 ：
+1、通过events up 2、this.$parent
+
+③删除
+
+要求：统一使用event来完成由子组件向父组件传输数据。
+
+
+
+
+

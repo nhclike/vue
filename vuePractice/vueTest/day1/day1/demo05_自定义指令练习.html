@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="example">
+    {{msg}}
+
+    <button @click="handleClick"
+            v-if="count < 5"
+            v-operatecount="count">
+        clickMe
+    </button>
+
+</div>
+
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive',
+            count:0
+        },
+        methods:{
+          handleClick: function () {
+              console.log('btn is clicked');
+              this.count++;
+          }
+        },
+        directives:{
+            operatecount:{
+                bind: function () {
+                    console.log(' in bind ');
+                },
+                update: function (el,binding) {
+                    console.log(' in update ');
+                    //当指令中的数据发生变化时，会调用函数
+                    console.log(el,binding);
+                    el.innerHTML = binding.value;
+                    /*if(binding.value > 5)
+                    {
+                        el.remove();
+                    }*/
+                },
+                unbind: function () {
+                    console.log(' element is removed ');
+                }
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

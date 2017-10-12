@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+
+<div id="example">
+    <router-link to="/myMain">跳转到Main页面</router-link>
+    <router-link to="/myLogin">跳转到Login页面</router-link>
+    <hr/>
+    <!-- 指定盛放组件的容器-->
+    <router-view></router-view>
+
+
+</div>
+
+<script>
+    var Login = Vue.component('login-component', {
+        template: '<div><h1> this is login </h1> ' +
+        ' <button @click="handleClick">跳转到Main</button>' +
+        ' <a href="#/myMain">跳转到Main</a>' +
+        '</div>',
+        methods:{
+            handleClick: function () {
+                //跳转到main页面
+                this.$router.push('/myMain')
+            }
+        }
+    })
+
+    var Main = Vue.component('main-component', {
+        template: '<h1> this is main </h1>'
+    })
+
+    //配置路由词典
+    var myRoutes = [
+        {
+            path: '/',
+            component: Login
+        },
+        {
+            path: '/myLogin',
+            component: Login
+        },
+        {
+            path: '/myMain',
+            component: Main
+        },
+        {
+            path:'*',
+            component:Login
+        }
+    ]
+    var myRouter = new VueRouter({
+        routes: myRoutes
+    })
+
+    new Vue({
+        el: '#example',
+        router: myRouter,
+        data: {
+            msg: 'Hello Directive'
+        }
+    })
+</script>
+
+</body>
+</html>

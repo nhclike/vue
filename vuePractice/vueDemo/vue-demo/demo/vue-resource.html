@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <script src="../node_modules/vue-resource/dist/vue-resource.js"></script>
+</head>
+<body>
+<div id="app" class="container">
+  <h1>vue-resource的插件讲解</h1>
+  <button class="btn btn-primary" v-on:click="get">get请求</button>
+  <button class="btn btn-primary" @click="post">post请求</button >
+  <button class="btn btn-primary" v-on:click="jsonp">jsonp请求</button >
+  <button class="btn btn-primary" @click="http">http请求</button >
+  <div>
+    <span>{{msg}}</span>
+  </div>
+
+</div>
+<script>
+  new Vue({
+    el:"#app",
+    data:{
+      msg:''
+    },
+    mounted:function () {
+      Vue.http.interceptors.push(function (request,next) {//全局拦截控制器
+        console.log('request init');
+        next(function (response) {
+          console.log('response init');
+          return response
+        });
+
+      })
+    },
+    http:{
+      root:'http://localhost:63342/VueProject/vueDemo/vue-demo/' //配置全局请求地址，直接将文件请求定位到项目的绝对路径
+    },
+    methods:{
+      get:function () {
+        alert('发送get请求');
+        this.$http.get("http://www.imooc.com/course/ajaxcourselearn?cid=796",{
+          params:{
+            userId:'101'
+          },
+          headers:{
+            token:'abc'
+          }
+        }).then(
+          res=>{
+          this.msg=res.data;
+          },
+          error=>{
+          this.msg=error;
+          }
+        )
+      },
+      post:function () {
+        alert('发送post请求');
+        this.$http.post('package.json',{
+          userId:'102'
+        },{
+          headers:{
+            access_token:'abcd'
+          }
+        }).then(
+          res=>{
+            this.msg=res.data;
+          },
+          error=>{
+            this.msg=error;
+          }
+        )
+      },
+      jsonp:function () {
+        alert('发送jsonp请求');
+        this.$http.jsonp('http://www.imooc.com/course/ajaxcourselearn?cid=796').then(
+          res=>{
+            this.msg=res.data;
+          },
+          error=>{
+            this.msg=error;
+          }
+        )
+      },
+      http:function () {
+        alert('发送http请求');
+        this.$http({
+          url:'package.json',
+          params:{
+            userId:'103'
+          },
+          headers:{
+            token:'123'
+          },
+          timeout:5,
+          before:function () {
+            console.log('before init')
+          }
+        }).then(
+          function (res) {
+            this.msg=res.data;
+          }
+        )
+      }
+    }
+  })
+</script>
+</body>
+</html>

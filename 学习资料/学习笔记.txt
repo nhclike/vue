@@ -13,3 +13,6 @@ demo网址：http://imooc.51purse.com/
 node.js
 javascript的运行环境
 cnpm
+
+AMD CMD CommonJS ES6
+

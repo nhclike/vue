@@ -5,6 +5,7 @@ import GoodList from '@/views/GoodsList'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',//也可以为hash则端口号后面要加一个#
   routes: [
     {
       path: '/',

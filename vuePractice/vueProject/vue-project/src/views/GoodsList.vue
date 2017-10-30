@@ -1,14 +1,7 @@
 <template>
     <div>
      <nav-header></nav-header>
-      <div class="nav-breadcrumb-wrap">
-        <div class="container">
-          <nav class="nav-breadcrumb">
-            <a href="/">Home</a>
-            <span>Goods</span>
-          </nav>
-        </div>
-      </div>
+      <nav-bread></nav-bread>
       <div class="accessory-result-page accessory-page">
         <div class="container">
           <div class="filter-nav">
@@ -44,7 +37,7 @@
                 <ul>
                   <li>
                     <div class="pic">
-                      <a href="#"><img src="/static/1.jpg" alt=""></a>
+                      <a href="#"><img src="../static/1.jpg" alt=""></a>
                     </div>
                     <div class="main">
                       <div class="name">XX</div>
@@ -54,42 +47,7 @@
                       </div>
                     </div>
                   </li>
-                  <li>
-                    <div class="pic">
-                      <a href="#"><img src="static/2.jpg" alt=""></a>
-                    </div>
-                    <div class="main">
-                      <div class="name">XX</div>
-                      <div class="price">1000</div>
-                      <div class="btn-area">
-                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="pic">
-                      <a href="#"><img src="static/3.jpg" alt=""></a>
-                    </div>
-                    <div class="main">
-                      <div class="name">XX</div>
-                      <div class="price">500</div>
-                      <div class="btn-area">
-                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="pic">
-                      <a href="#"><img src="static/4.jpg" alt=""></a>
-                    </div>
-                    <div class="main">
-                      <div class="name">XX</div>
-                      <div class="price">2499</div>
-                      <div class="btn-area">
-                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
-                      </div>
-                    </div>
-                  </li>
+
                 </ul>
               </div>
             </div>
@@ -104,15 +62,29 @@
     import './../assets/css/product.css'
     import NavHeader from '@/components/NavHeader.vue'
     import NavFooter from '@/components/NavFooter.vue'
+    import NavBread from '@/components/NavBread.vue'
+    import axios from 'axios'
     export default{
         data(){
             return {
-
+              goodList:[]
             }
         },
       components:{
           NavHeader:NavHeader,
-          NavFooter:NavFooter
+          NavFooter:NavFooter,
+          NavBread:NavBread
+      },
+      mounted:function () {
+        this.getGoodList();
+      },
+      methods:{
+        getGoodList(){
+          axios.get('/goods').then((result)=>{
+            var res=result.data;
+            this.goodList=res.result;
+          })
+        }
       }
     }
 </script>

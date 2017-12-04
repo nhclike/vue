@@ -80,10 +80,10 @@
       },
       methods:{
         getGoodList(){
-          axios.get('/goods').then((result)=>{
+          /*axios.get('/goods').then((result)=>{
             var res=result.data;
             this.goodList=res.result;
-          })
+          })*/
         }
       }
     }

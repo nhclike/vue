@@ -38,11 +38,13 @@
                   <li v-for="(item,index) in goodList">
                     <div class="pic">
 
-                      <a href="#"><img src="./../static/mi6.jpg"  alt=""></a>
-
 <!--
-                      <a href="#"><img v-bind:src="item.productImg"  alt=""></a>
+                      <a href="#"><img src="/static/mi6.jpg" alt=""></a>
 -->
+
+
+                      <a href="#"><img v-bind:src="'/static/'+item.productImg"  alt=""></a>
+
 
                     </div>
                     <div class="main">

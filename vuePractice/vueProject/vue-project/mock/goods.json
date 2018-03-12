@@ -5,7 +5,7 @@
         "productId":"10001",
         "productName":"小米6",
         "productPrice":"2499",
-        "productImg":"./../static/mi6.jpg"
+        "productImg":"mi6.jpg"
     },
     {
       "productId":"10002",

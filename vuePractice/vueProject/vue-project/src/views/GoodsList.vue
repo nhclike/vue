@@ -8,25 +8,16 @@
             <span class="sortby">Sort by:</span>
             <a href="javascript:void(0)" class="default cur">Default</a>
             <a href="javascript:void(0)" class="price">Price <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
-            <a href="javascript:void(0)" class="filterby stopPop">Filter by</a>
+            <a href="javascript:void(0)" class="filterby stopPop" @click="showFilterPop">Filter by</a>
           </div>
           <div class="accessory-result">
             <!-- filter -->
-            <div class="filter stopPop" id="filter">
+            <div class="filter stopPop" id="filter" v-bind:class="{'filterby-show':filterBy}">
               <dl class="filter-price">
                 <dt>Price:</dt>
-                <dd><a href="javascript:void(0)">All</a></dd>
-                <dd>
-                  <a href="javascript:void(0)">0 - 100</a>
-                </dd>
-                <dd>
-                  <a href="javascript:void(0)">100 - 500</a>
-                </dd>
-                <dd>
-                  <a href="javascript:void(0)">500 - 1000</a>
-                </dd>
-                <dd>
-                  <a href="javascript:void(0)">1000 - 2000</a>
+                <dd><a href="javascript:void(0)" v-bind:class="{'cur':priceCheck=='all'}">All</a></dd>
+                <dd v-for="(item,index) in priceFilter">
+                  <a href="javascript:void(0)" v-bind:class="{'cur':priceCheck==index}" @click="setPriceFilter(index)">{{item.startPrice}}—— {{item.endPrice}}</a>
                 </dd>
               </dl>
             </div>
@@ -37,15 +28,7 @@
                 <ul>
                   <li v-for="(item,index) in goodList">
                     <div class="pic">
-
-<!--
-                      <a href="#"><img src="/static/mi6.jpg" alt=""></a>
--->
-
-
-                      <a href="#"><img v-bind:src="'/static/'+item.productImg"  alt=""></a>
-
-
+                      <a href="#"><img v-lazy="'/static/'+item.productImg"  alt=""></a>
                     </div>
                     <div class="main">
                       <div class="name">{{item.productName}}</div>
@@ -55,19 +38,20 @@
                       </div>
                     </div>
                   </li>
-
                 </ul>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="md-overlay" v-show="overLayFlag" @click="closePop"></div>
       <nav-footer></nav-footer>
     </div>
 </template>
 <script>
     import './../assets/css/base.css'
     import './../assets/css/product.css'
+    import './../assets/css/login.css'
     import NavHeader from '@/components/NavHeader.vue'
     import NavFooter from '@/components/NavFooter.vue'
     import NavBread from '@/components/NavBread.vue'
@@ -75,7 +59,30 @@
     export default{
         data(){
             return {
-              goodList:[]
+              goodList:[],
+              priceFilter:[
+                {
+                  startPrice:'0.00',
+                  endPrice:'100.00'
+                },
+                {
+                  startPrice:'100.00',
+                  endPrice:'500.00'
+                }
+                ,
+                {
+                  startPrice:'500.00',
+                  endPrice:'1000.00'
+                }
+                ,
+                {
+                  startPrice:'1000.00',
+                  endPrice:'2000.00'
+                }
+              ],
+              priceCheck:'all',
+              filterBy:false,
+              overLayFlag:false
             }
         },
       components:{
@@ -94,13 +101,20 @@
             this.goodList=res.result;
             console.log(this.goodList+'goodList');
           })
+        },
+        showFilterPop(){
+          this.filterBy=true;
+          this.overLayFlag=true;
+        },
+        closePop(){
+          this.filterBy=false;
+          this.overLayFlag=false;
+        },
+        setPriceFilter(index){
+          this.priceCheck=index;
+          this.closePop();
         }
       }
+
     }
 </script>
-<style>
-  .pic img{
-/*width: 100px;
-height: 100px*/
-  }
-</style>

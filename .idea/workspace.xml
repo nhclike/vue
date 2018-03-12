@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="87afbb39-2ccb-420b-9fa5-61fc0d539b1c" name="Default" comment="开始实战项目">
+    <list default="true" id="87afbb39-2ccb-420b-9fa5-61fc0d539b1c" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/static/.gitkeep" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/static/logo.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/table/package.json" afterPath="$PROJECT_DIR$/table/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/table/src/components/table.vue" afterPath="$PROJECT_DIR$/table/src/components/table.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vuePractice/vueDemo/node_modules/.npminstall.done" afterPath="$PROJECT_DIR$/vuePractice/vueDemo/node_modules/.npminstall.done" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/mock/goods.json" afterPath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/mock/goods.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/package.json" afterPath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/App.vue" afterPath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/App.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/components/HelloWorld.vue" afterPath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/components/HelloWorld.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/components/NavHeader.vue" afterPath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/components/NavHeader.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/main.js" afterPath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/router/index.js" afterPath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/router/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/views/GoodsList.vue" afterPath="$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/views/GoodsList.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -16,50 +27,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GoodsList.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/views/GoodsList.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="80" column="15" lean-forward="false" selection-start-line="80" selection-start-column="15" selection-end-line="80" selection-end-column="15" />
-              <folding>
-                <element signature="e#2132#2165#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="vue中使用form的坑.txt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/学习资料/vue和webpack使用总结/vue中使用form的坑.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vuePractice/vueDemo/vue-demo/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="App.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vuePractice/vueDemo/vue-demo/src/App.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -124,13 +92,14 @@
     <handled-path value="$PROJECT_DIR$/vuePractice/vueDemo/node_modules" />
     <handled-path value="$PROJECT_DIR$/vuePractice/vueDemo/vue-demo/node_modules" />
     <handled-path value="$PROJECT_DIR$/vuePractice/vueProject/node_modules" />
+    <handled-path value="$PROJECT_DIR$/vuePractice/vueProject/project-sound-code/node_modules" />
     <handled-path value="$PROJECT_DIR$/vuePractice/vueProject/vue-project/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1358" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1376" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -147,9 +116,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -400,32 +368,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vue" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vue" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vuePractice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vueDemo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vue-demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="demo" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -447,9 +389,28 @@
               <option name="myItemId" value="vueDemo" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node_modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vue" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vue" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vuePractice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -922,7 +883,13 @@
       <workItem from="1508117019930" duration="1520000" />
       <workItem from="1509357421803" duration="3860000" />
       <workItem from="1509439913139" duration="2769000" />
-      <workItem from="1512373759950" duration="140000" />
+      <workItem from="1512373759950" duration="187000" />
+      <workItem from="1512377759661" duration="124000" />
+      <workItem from="1512384036711" duration="14000" />
+      <workItem from="1512615581498" duration="60000" />
+      <workItem from="1520319956231" duration="83000" />
+      <workItem from="1520320201599" duration="36000" />
+      <workItem from="1520837313017" duration="49000" />
     </task>
     <task id="LOCAL-00001" summary="添加vue-demo&#10;1包括vue-cli模版，组件间通信&#10;2vue-router路由配置模版，详解&#10;3vue-resource使用demo和详解">
       <created>1507790737832</created>
@@ -959,11 +926,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509364007597</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="开始实战项目">
+      <created>1512373960599</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1512373960599</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29584000" />
+    <option name="totallyTimeSpent" value="29997000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -975,7 +949,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32910052" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -985,13 +959,13 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24919786" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24802528" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23386243" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4973545" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23027718" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1074,9 +1048,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="添加vue-demo&#10;1包括vue-cli模版，组件间通信&#10;2vue-router路由配置模版，详解&#10;3vue-resource使用demo和详解" />
     <MESSAGE value="添加promise" />
-    <MESSAGE value="开始实战项目" />
     <MESSAGE value="初步完成购物列表页面" />
-    <option name="LAST_COMMIT_MESSAGE" value="初步完成购物列表页面" />
+    <MESSAGE value="开始实战项目" />
+    <option name="LAST_COMMIT_MESSAGE" value="开始实战项目" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1309,13 +1283,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vuePractice/vueDemo/vue-demo/demo/axios.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vuePractice/vueProject/vue-project/build/dev-server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="499">
@@ -1390,7 +1357,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1412,17 +1378,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vuePractice/vueProject/vue-project/src/views/GoodsList.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
+        <state relative-caret-position="1520">
           <caret line="80" column="15" lean-forward="false" selection-start-line="80" selection-start-column="15" selection-end-line="80" selection-end-column="15" />
-          <folding>
-            <element signature="e#2132#2165#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1430,6 +1392,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vuePractice/vueDemo/vue-demo/demo/axios.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="36" column="6" lean-forward="true" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
           <folding />
         </state>
       </provider>

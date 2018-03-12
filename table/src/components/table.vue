@@ -32,21 +32,35 @@
     </div>
   </div>
 </template>
-
+<script src="../../node_modules/axios/dist/axios.js"></script>
 <script>
   export default {
     name: 'hello',
     data () {
       return {
         user: {'name': '', 'age': '', 'school': ''},
-        users: [
-          {'name': '李磊', 'age': '25', 'school': '洛阳理工'},
-          {'name': '张成', 'age': '23', 'school': '桂林电子科技'},
-          {'name': '炼心', 'age': '22', 'school': '江西电子科技'}
-        ]
+        users: []
       }
     },
     methods: {
+      get:function () {
+        axios.get('../data/test.json',
+          {
+            params:{
+              userId:'999'
+            },
+            headers:{
+              token:'jack'
+            }
+          }
+        ).then(
+          res=>{
+            this.users=res.data;
+          }
+        ).catch(function (error) {
+          //console.log('error:'+error);
+        })
+      },
       insert: function () {
         this.users.push(this.user)
       },

@@ -8,12 +8,12 @@ export default new Router({
   mode: 'history',//也可以为hash则端口号后面要加一个#
   routes: [
     {
-      path: '/',
+      path: '/hello',
       name: 'Hello',
       component: HelloWorld
     },
     {
-      path: '/goods',
+      path: '/',
       name: 'GoodList',
       component: GoodList
     }

@@ -22,12 +22,12 @@ var proxyTable = config.dev.proxyTable
 
 var app = express()
 //模拟数据请求
-var router=express.Router();
+/*var router=express.Router();
 var   goodData=require('./../mock/goods.json');
 router.get('/goods',function (req,res,next) {
   res.json(goodData);
 })
-app.use(router);
+app.use(router);*/
 
 
 var compiler = webpack(webpackConfig)

@@ -6,8 +6,8 @@ import router from './router'
 /*import axios from 'axios'*/
 import VueLazyLoad from 'vue-lazyload';
 /*Vue.prototype.$http = axios;*/
-
-
+import infiniteScroll from  'vue-infinite-scroll';
+Vue.use(infiniteScroll);
 Vue.config.productionTip = false;
 Vue.use(VueLazyLoad,{
 

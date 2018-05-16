@@ -39,6 +39,9 @@
                     </div>
                   </li>
                 </ul>
+                <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+                  加载中
+                </div>
               </div>
             </div>
           </div>
@@ -85,7 +88,8 @@
               overLayFlag:false,
               sortFlag:true,
               page:1,
-              pageSize:8
+              pageSize:8,
+              busy:true //禁用
             }
         },
       components:{
@@ -97,7 +101,7 @@
         this.getGoodList();
       },
       methods:{
-        getGoodList(){
+        getGoodList(flag){
           var param={
             page:this.page,
             pageSize:this.pageSize,
@@ -106,11 +110,25 @@
           axios.get('/goods',{
             params:param
           }).then((result)=>{
-           // alert(result);
             var res=result.data;
-            console.log(res);
-            this.goodList=res.result.list;
-            //console.log(this.goodList+'goodList');
+            if(res.status=='0'){
+              if(flag){
+                this.goodList=this.goodList.concat(res.result.list);
+                if(res.result.count=0){
+                  this.busy=true
+                }
+                else {
+                  this.busy=false
+                }
+              }
+              else{
+                this.goodList=res.result.list;
+                this.busy=false
+              }
+            }
+            else{
+              this.goodList=[];
+            }
           })
         },
         sortGoods(){
@@ -129,6 +147,15 @@
         setPriceFilter(index){
           this.priceCheck=index;
           this.closePop();
+        },
+        loadMore: function() {
+          this.busy = true;
+          //官方示例中延迟了1秒，防止滚动条滚动时的频繁请求数据
+          setTimeout(() => {
+            //这里请求接口去拿数据，实际应该是调用一个请求数据的方法
+            this.page++;
+            this.getGoodList(true);
+          }, 1000);
         }
       }
 

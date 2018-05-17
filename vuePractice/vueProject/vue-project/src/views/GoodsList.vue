@@ -34,13 +34,13 @@
                       <div class="name">{{item.productName}}</div>
                       <div class="price">{{item.salePrice}}</div>
                       <div class="btn-area">
-                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                        <a href="javascript:;" class="btn btn--m" @click="addCart(item.productId)">加入购物车</a>
                       </div>
                     </div>
                   </li>
                 </ul>
                 <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
-                  加载中
+                  <img src="./../assets/loading-spinning-bubbles.svg" alt="" v-show="loading">
                 </div>
               </div>
             </div>
@@ -89,7 +89,8 @@
               sortFlag:true,
               page:1,
               pageSize:8,
-              busy:true //禁用
+              busy:true, //禁用
+              loading:true
             }
         },
       components:{
@@ -105,11 +106,14 @@
           var param={
             page:this.page,
             pageSize:this.pageSize,
-            sort:this.sortFlag? 1: -1
+            sort:this.sortFlag? 1: -1,
+            priceLevel:this.priceCheck
           };
+          this.loading=true;
           axios.get('/goods',{
             params:param
           }).then((result)=>{
+            this.loading=false;
             var res=result.data;
             if(res.status=='0'){
               if(flag){
@@ -147,6 +151,8 @@
         setPriceFilter(index){
           this.priceCheck=index;
           this.closePop();
+          this.page=1;
+          this.getGoodList();
         },
         loadMore: function() {
           this.busy = true;
@@ -156,6 +162,18 @@
             this.page++;
             this.getGoodList(true);
           }, 1000);
+        },
+        addCart(productId){
+          axios.post("/goods/addCart",{
+            productId:productId
+          }).then((res)=>{
+            if(res.status=='1'){
+              alert('加入购物车失败')
+            }
+            else{
+              alert('加入购物车成功')
+            }
+          })
         }
       }
 

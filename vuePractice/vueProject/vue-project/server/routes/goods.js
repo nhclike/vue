@@ -17,7 +17,7 @@ mongoose.connection.on("deconnected",function () {
   console.log("MongoDB connected deconnected");
 });
 //查询商品列表
-router.get('/',function (req,res,next) {
+router.get('/list',function (req,res,next) {
   let page=parseInt(req.param("page"));//解析前台传过来的参数；第几页
   let pageSize=parseInt(req.param("pageSize")); //每页大小
   let sort=parseInt(req.param("sort")); //排序方式
@@ -138,5 +138,5 @@ router.post("/addCart",function (req,res,next) {
       }
     }
   })
-})
+});
 module.exports=router;

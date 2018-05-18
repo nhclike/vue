@@ -66,7 +66,20 @@
         islogin:false
       }
     },
+    mounted:function () {
+      this.checkLogin()
+
+    },
     methods:{
+      checkLogin(){
+        axios.get('users/checkLogin').then((response)=>{
+          let res=response.data;
+          if(res.status=='0'){ //当前已经登录
+            this.nikename=res.result;
+            this.islogin=true;
+          }
+        })
+      },
       login(){
         if(this.loginForm.userName=='' || this.loginForm.userPwd==''){
 

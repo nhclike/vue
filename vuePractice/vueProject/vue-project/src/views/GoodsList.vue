@@ -6,15 +6,17 @@
         <div class="container">
           <div class="filter-nav">
             <span class="sortby">Sort by:</span>
-            <a href="javascript:void(0)" class="default cur">Default</a>
-            <a href="javascript:void(0)" class="price" @click="sortGoods">Price <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
+            <a href="javascript:void(0)" class="default " v-bind:class="{'cur':curSortType}"> Default</a>
+            <a href="javascript:void(0)" class="price" @click="sortGoods" v-bind:class="{'cur':!curSortType}">Price
+              <img src="./../assets/down.svg" alt="" v-bind:class="{'sortUp':isUp}">
+            </a>
             <a href="javascript:void(0)" class="filterby stopPop" @click="showFilterPop">Filter by</a>
           </div>
           <div class="accessory-result">
             <!-- filter -->
             <div class="filter stopPop" id="filter" v-bind:class="{'filterby-show':filterBy}">
               <dl class="filter-price">
-                <dt>Price:</dt>
+                <dt>Price: </dt>
                 <dd><a href="javascript:void(0)" v-bind:class="{'cur':priceCheck=='all'}">All</a></dd>
                 <dd v-for="(item,index) in priceFilter">
                   <a href="javascript:void(0)" v-bind:class="{'cur':priceCheck==index}" @click="setPriceFilter(index)">{{item.startPrice}}—— {{item.endPrice}}</a>
@@ -90,7 +92,9 @@
               page:1,
               pageSize:8,
               busy:true, //禁用
-              loading:true
+              loading:true,
+              isUp:true,
+              curSortType:true
             }
         },
       components:{
@@ -110,7 +114,7 @@
             priceLevel:this.priceCheck
           };
           this.loading=true;
-          axios.get('/goods',{
+          axios.get('/goods/list',{
             params:param
           }).then((result)=>{
             this.loading=false;
@@ -137,6 +141,8 @@
         },
         sortGoods(){
           this.sortFlag=!this.sortFlag;
+          this.isUp=!this.isUp;
+          this.curSortType=false;
           this.page=1;
           this.getGoodList()
         },
@@ -166,12 +172,13 @@
         addCart(productId){
           axios.post("/goods/addCart",{
             productId:productId
-          }).then((res)=>{
-            if(res.status=='1'){
-              alert('加入购物车失败')
+          }).then((response)=>{
+            let res=response.data
+            if(res.status=='0'){
+              alert('加入购物车成功')
             }
             else{
-              alert('加入购物车成功')
+              alert(res.msg)
             }
           })
         }

@@ -35,11 +35,18 @@ module.exports = {
       '/goods':{
         changeOrigin: true,
         target:'http://127.0.0.1:3000', //处理跨域服务代理
-       /* pathRewrite: {
-          '^/goods': '/goods'
-        },*/
         secure:false
-}
+      },
+      '/goods/*':{
+        changeOrigin: true,
+        target:'http://127.0.0.1:3000', //处理跨域服务代理
+        secure:false
+      },
+      '/users/*':{
+        changeOrigin: true,
+        target:'http://127.0.0.1:3000', //处理跨域服务代理
+        secure:false
+      }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README

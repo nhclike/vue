@@ -16,9 +16,10 @@
       <div class="navbar-right-container" style="display: flex;">
         <div class="navbar-menu-container">
           <!--<a href="/" class="navbar-link">我的账户</a>-->
-          <span class="navbar-link"></span>
-          <a href="javascript:void(0)" class="navbar-link">Login</a>
-          <a href="javascript:void(0)" class="navbar-link">Logout</a>
+          <span v-text="nikename" v-if="islogin"></span>
+          <a href="javascript:void(0)" class="navbar-link"  @click="dialogLoginFormVisible = true" v-if="!islogin"  >Login</a>
+
+          <a href="javascript:void(0)" class="navbar-link" @click="logout" v-if="islogin">Logout</a>
           <div class="navbar-cart-container">
             <span class="navbar-cart-count"></span>
             <a class="navbar-link navbar-cart-link" href="/#/cart">
@@ -30,11 +31,73 @@
         </div>
       </div>
     </div>
+    <el-dialog title="用户登录" :visible.sync="dialogLoginFormVisible" width="30%" center>
+      <el-form :model="loginForm">
+        <el-form-item label="用户名" :label-width="formLabelWidth">
+          <el-input v-model="loginForm.userName" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" :label-width="formLabelWidth">
+          <el-input v-model="loginForm.userPwd" auto-complete="off"></el-input>
 
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <span v-show="errorTip">用户名或密码错误</span>
+
+        <el-button type="primary" @click="login" style="width: 100%">登录</el-button>
+      </div>
+    </el-dialog>
   </header>
 </template>
 
 <script>
+  import axios from 'axios'
+  export default{
+    data(){
+      return {
+        dialogLoginFormVisible: false,
+        loginForm: {
+          userName: '',
+          userPwd: ''
+        },
+        errorTip:false,
+        formLabelWidth: '60px',
+        nikename:'',
+        islogin:false
+      }
+    },
+    methods:{
+      login(){
+        if(this.loginForm.userName=='' || this.loginForm.userPwd==''){
 
+          this.errorTip=true;
+          return ;
+        }
+        axios.post('/users/login',{
+          userName:this.loginForm.userName,
+          userPwd:this.loginForm.userPwd
+        }).then((response)=>{
+          let res=response.data;
+          if(res.status=='0'){ //成功
+            this.errorTip=false;
+            this.dialogLoginFormVisible=false;
+            this.islogin=true;
+            this.nikename=res.result.userName;
+          }
+          else{//失败
+            this.errorTip=true
+          }
+        })
+      },
+      logout(){
+        axios.post("/users/logout").then((response)=>{
+          let res=response.data;
+          if(res.status=='0'){
+            this.islogin=false;
+          }
+        })
+      }
+    }
+  }
 </script>
 

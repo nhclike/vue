@@ -4,6 +4,7 @@ import router from './router'
 import VueLazyLoad from 'vue-lazyload';
 import infiniteScroll from  'vue-infinite-scroll';
 import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI);
 
 Vue.use(infiniteScroll);

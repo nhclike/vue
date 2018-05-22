@@ -42,7 +42,7 @@ module.exports = {
         target:'http://127.0.0.1:3000', //处理跨域服务代理
         secure:false
       },
-      '/users/*':{
+      '/users/*':{ //如果是3级路由写成'/users/**'
         changeOrigin: true,
         target:'http://127.0.0.1:3000', //处理跨域服务代理
         secure:false

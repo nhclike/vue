@@ -1,7 +1,9 @@
 <template>
     <div>
      <nav-header></nav-header>
-      <nav-bread></nav-bread>
+      <nav-bread>
+        <span>Goods</span>
+      </nav-bread>
       <div class="accessory-result-page accessory-page">
         <div class="container">
           <div class="filter-nav">
@@ -36,7 +38,7 @@
                       <div class="name">{{item.productName}}</div>
                       <div class="price">{{item.salePrice}}</div>
                       <div class="btn-area">
-                        <a href="javascript:;" class="btn btn--m" @click="addCart(item.productId)">加入购物车</a>
+                        <a href="javascript:;" class="btn btn-m" @click="addCart(item.productId)">加入购物车</a>
                       </div>
                     </div>
                   </li>
@@ -50,6 +52,26 @@
         </div>
       </div>
       <div class="md-overlay" v-show="overLayFlag" @click="closePop"></div>
+      <modal v-bind:mdShow="mdShow" v-on:close="closeModal">
+        <p slot="message">
+          请先登录，否则无法加入购物车
+        </p>
+        <div slot="btnGroup">
+          <el-button type="primary" @click="closeModal">关闭</el-button>
+        </div>
+      </modal>
+      <modal v-bind:mdShow="mdShowCart" v-on:close="closeModal">
+        <p slot="message">
+          <svg class="navbar-cart-logo">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use>
+          </svg>
+          <span>加入购物车成功</span>
+        </p>
+        <div slot="btnGroup">
+          <el-button type="primary" plain @click="mdShowCart=false">继续购物</el-button>
+          <router-link class="btn btn--m" href="javascript:" to="/cart">查看购物车</router-link>
+        </div>
+      </modal>
       <nav-footer></nav-footer>
     </div>
 </template>
@@ -60,6 +82,7 @@
     import NavHeader from '@/components/NavHeader.vue'
     import NavFooter from '@/components/NavFooter.vue'
     import NavBread from '@/components/NavBread.vue'
+    import Modal from '@/components/Modal.vue'
     import axios from 'axios'
     export default{
         data(){
@@ -94,13 +117,16 @@
               busy:true, //禁用
               loading:true,
               isUp:true,
-              curSortType:true
+              curSortType:true,
+              mdShow:false,
+              mdShowCart:false
             }
         },
       components:{
           NavHeader:NavHeader,
           NavFooter:NavFooter,
-          NavBread:NavBread
+          NavBread:NavBread,
+          Modal:Modal
       },
       mounted:function () {
         this.getGoodList();
@@ -175,12 +201,17 @@
           }).then((response)=>{
             let res=response.data
             if(res.status=='0'){
-              alert('加入购物车成功')
+              this.mdShowCart=true;
             }
             else{
-              alert(res.msg)
+              this.mdShow=true;
+              //alert(res.msg)
             }
           })
+        },
+        closeModal(){
+          this.mdShow=false;
+          this.mdShowCart=false;
         }
       }
 

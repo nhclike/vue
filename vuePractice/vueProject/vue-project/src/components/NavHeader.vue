@@ -11,7 +11,7 @@
     <div class="navbar">
       <div class="navbar-left-container">
         <a href="/">
-          <img class="navbar-brand-logo" src="/static/logo1.png"></a>
+          <img class="navbar-brand-logo" src="/static/logo2.png" width="120px"></a>
       </div>
       <div class="navbar-right-container" style="display: flex;">
         <div class="navbar-menu-container">
@@ -44,7 +44,7 @@
       <div slot="footer" class="dialog-footer">
         <span v-show="errorTip">用户名或密码错误</span>
 
-        <el-button type="primary" @click="login" style="width: 100%">登录</el-button>
+        <el-button type="primary" @click="login" @keyup.enter ="login" style="width: 100%">登录</el-button>
       </div>
     </el-dialog>
   </header>

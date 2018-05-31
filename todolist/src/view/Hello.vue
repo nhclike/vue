@@ -17,7 +17,7 @@
 
 <script>
   export default {
-    name: 'this is a hello',
+    name: '',
     data () {
       return {
         msg: 'this is a hello',

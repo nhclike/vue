@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
+    <span>this is app.vue</span>
     <!--路由页面跳转-->
     <a >
       <router-link to="/todo">
@@ -10,6 +11,11 @@
     <a>
       <router-link to="/">
         跳转到hello页面
+      </router-link>
+    </a>
+    <a>
+      <router-link to="/father">
+        跳转到father页面
       </router-link>
     </a>
     <router-view></router-view>

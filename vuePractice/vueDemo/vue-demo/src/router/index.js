@@ -5,6 +5,9 @@ import GoodsList from './../views/GoodsList'      //./为当前目录../为上�
 import Title from '@/views/Title'
 import Image from '@/views/Image'
 import Cart from '@/views/Cart'
+import SelectRemote from '@/components/SelectRemote'
+import FormBasic from '@/views/FormBasic'
+import FormIncludeComponent from '@/views/FormIncludeComponent'
 Vue.use(Router);
 
 export default new Router({
@@ -40,6 +43,21 @@ export default new Router({
       path:'/cart/:cartId',  //动态路由传参
       name:'cart',
       component:Cart
+    },
+    {
+      path:'/SelectRemote',
+      name:'SelectRemote',
+      component:SelectRemote
+    },
+    {
+      path:'/FormBasic',
+      name:'FormBasic',
+      component:FormBasic
+    },
+    {
+      path:'/FormIncludeComponent',
+      name:'FormIncludeComponent',
+      component:FormIncludeComponent
     }
   ]
 })
